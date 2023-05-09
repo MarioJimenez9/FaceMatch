@@ -18,8 +18,6 @@ for image_name in os.listdir(person_path):
     image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     images.append(image_gray)
     labels.append(id)
-    print(image_gray.shape)
-    print(image_gray)
     
 # Training model
 face_recognizer = cv2.face.EigenFaceRecognizer_create()
