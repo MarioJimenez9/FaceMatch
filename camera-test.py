@@ -15,8 +15,8 @@ with open("pickles/face-labels.pickle", 'rb') as f:
 	og_labels = pickle.load(f)
 	labels = {v:k for k,v in og_labels.items()}
 
-cap = cv2.VideoCapture(0)
-
+cap = cv2.VideoCapture(1)
+print(labels)
 while(True):
 	ret, frame = cap.read()
 	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -26,14 +26,15 @@ while(True):
 		roi_color = frame[y:y+h, x:x+w]
 
 		id_, conf = recognizer.predict(roi_gray)
-		if conf >= 4 and conf <= 85:
+		print(str(id_) + " " + str(conf))
+		if conf >= 25 and conf <= 85:
 			font = cv2.FONT_HERSHEY_SIMPLEX
 			name = labels[id_]
 			color = (255, 255, 255)
 			stroke = 2
-			cv2.putText(frame, name, (x, y), 1, color, stroke, cv2.LINE_AA)
+			cv2.putText(frame, name, (x,y), font, 1, color, stroke, cv2.LINE_AA)
 		
-		img_item = "7.png"
+		img_item = "current.png"
 		cv2.imwrite(img_item, roi_color)
 		color = (255, 0, 0)
 		stroke = 2
